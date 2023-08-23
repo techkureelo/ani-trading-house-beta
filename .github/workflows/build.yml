@@ -1,0 +1,42 @@
+name: Build and Deploy Website
+permissions:
+  contents: write
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-landing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repository (ani-trading-house) (Public)
+        uses: actions/checkout@v3
+        with:
+          path: data
+          persist-credentials: false
+      - name: Checkout ani repository (Private)
+        uses: actions/checkout@v3
+        with:
+          repository: techkureelo/ani
+          path: template
+          token: ${{ secrets.PAT }}
+          persist-credentials: false
+      - name: Copy Data and images to template and build 🏗️
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.2
+      #   - run: cp -r ./data/_posts ./template
+      #   - run: cp -r ./data/images ./template/public
+      - run: cd ./template && yarn
+      - run: cd ./template && yarn build:landing
+      - run: cp -r ./template/dist/apps/landing/.next .
+      - run: touch ./.next/.nojekyll
+      - run: cp ./data/CNAME ./.next
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: .next # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
