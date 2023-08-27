@@ -25,8 +25,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.2
-      #   - run: cp -r ./data/_posts ./template
-      #   - run: cp -r ./data/images ./template/public
+      - run: cp -r ./data/_data ./template/apps/landing
       - run: cd ./template && yarn
       - run: cd ./template && yarn build:landing
       - run: cp -r ./template/dist/apps/landing/.next .
