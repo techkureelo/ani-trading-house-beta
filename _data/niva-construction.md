@@ -1,7 +1,7 @@
 ---
 title:
-  ne: 'ननभा कन्स्ट्रक्सन'
-  en: 'Niva Construction'
+  ne: 'ननभा कन्स्ट्रक्सन प्रा.लि.'
+  en: 'Niva Construction Pvt. Ltd.'
 subtitle:
   ne: "बबल्डिङ ड्रीम्स, फ्यचु सड शेवपङ"
   en: "Building Dreams, Shaping Futures"
